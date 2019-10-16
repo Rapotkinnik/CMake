@@ -16,6 +16,7 @@
 #include "cmCPackLog.h"
 #include "cmCPackNSISGenerator.h"
 #include "cmCPackNuGetGenerator.h"
+#include "cmCPackConanGenerator.h"
 #include "cmCPackSTGZGenerator.h"
 
 #ifdef __APPLE__
@@ -95,6 +96,10 @@ cmCPackGeneratorFactory::cmCPackGeneratorFactory()
   if (cmCPackNuGetGenerator::CanGenerate()) {
     this->RegisterGenerator("NuGet", "NuGet packages",
                             cmCPackNuGetGenerator::CreateGenerator);
+  }
+  if (cmCPackNuGetGenerator::CanGenerate()) {
+    this->RegisterGenerator("Conan", "Conan packages",
+                            cmCPackConanGenerator::CreateGenerator);
   }
   if (cmCPackExternalGenerator::CanGenerate()) {
     this->RegisterGenerator("External", "CPack External packages",
